@@ -1,0 +1,11 @@
+.logo {
+    float: left;
+    height: 80px;
+    width: 80px;
+    background-image: url("/img/logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    margin-right: 20px;
+}
+
