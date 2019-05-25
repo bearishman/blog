@@ -1,0 +1,6 @@
+{
+  "posts": [
+    {"id": 1, "title": "Some title for post", "text": "Here we can write some text", "date": "2019-05-15", "likesCount": 0, "isLiked": false}
+
+  ]
+}

@@ -1,19 +1,30 @@
+import * as axios from "axios";
+
 const LIKE = 'LIKE';
 const UNLIKE = 'UNLIKE';
+const FETCH_POSTS_REQUEST = 'FETCH_POSTS';
+const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 
+export const likePost = id => ({type: LIKE, id});
+export const unlikePost = id => ({type: UNLIKE, id});
+export const fetchPostsRequest = () => ({type: FETCH_POSTS_REQUEST});
+export const fetchPostsSuccess = (posts) => ({type: FETCH_POSTS_SUCCESS, posts});
+export const fetchPosts = () => function(dispatch) {
+    //
+    dispatch(fetchPostsRequest());
+    axios.get('posts.json')
+        .then(response => {
+            dispatch(fetchPostsSuccess(response.data.posts))
+        })
+        .catch(error => {
 
-const initState = {
-    posts: [
-        {id: 1, title: 'Some title for post', text: 'Here we can write some text', date: '2019-05-15', likesCount: 0, isLiked: false}
-    ],
-    countPosts: 1,
-    pageSize: 5
-};
+        });
+}
 
-export const likePostAc = id => ({type: LIKE, id});
-export const unlikePostAc = id => ({type: UNLIKE, id});
-
-export default (state = initState, action)  => {
+export default (state = {
+    isFetching: false,
+    posts: []
+}, action)  => {
     switch (action.type) {
         case LIKE:
             return {
@@ -34,7 +45,17 @@ export default (state = initState, action)  => {
                     }
                 })
             }
-
+        case FETCH_POSTS_REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            }
+        case FETCH_POSTS_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                posts: action.posts
+            };
         default:
             return state
     }

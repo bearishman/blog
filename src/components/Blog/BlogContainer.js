@@ -1,12 +1,21 @@
+import React from "react";
 import {connect} from "react-redux";
 import Blog from "./Blog";
-import {likePostAc, unlikePostAc} from "../../redux/blog-reducer";
+import {fetchPosts, likePost, unlikePost} from "../../redux/blog-reducer";
+import Spinner from "../Spinner/Spinner";
 
+class BlogContainer extends React.Component {
+    //
+    componentDidMount() {
+      this.props.fetchPosts();
+    }
+    //
+    render() {
+        if (this.props.isFetching) {
+            return <Spinner/>
+        }
+        return <Blog {...this.props}/>
+    }
+}
 const mapStateToProps = state => state.blog
-
-const mapDispatchToProps = dispatch => ({
-    likePost: postId => dispatch(likePostAc(postId)),
-    unlikePost: postId => dispatch(unlikePostAc(postId))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Blog)
+export default connect(mapStateToProps, {likePost, unlikePost, fetchPosts})(BlogContainer)
