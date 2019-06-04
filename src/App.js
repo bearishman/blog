@@ -4,10 +4,12 @@ import {Provider} from "react-redux";
 import store from "./redux/store";
 
 import About from "./components/About/About";
-import BlogContainer from "./components/Blog/BlogContainer";
 import Header from "./components/Header/Header";
+import BlogContainer from "./components/Blog/BlogContainer";
+import PostContainer from "./components/Post/PostContainer";
 
 import styles from "./App.module.css";
+
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
             <Header/>
             <div className={styles.content}>
               <Route path="/" exact render={() => <BlogContainer/>}/>
+              <Route path="/post/:postId" render={() => <PostContainer/>}/>
               <Route path="/about" render={() => <About/>}/>
             </div>
           </div>

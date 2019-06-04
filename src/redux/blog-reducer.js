@@ -1,4 +1,5 @@
 import * as axios from "axios";
+import {postAPI} from "../api/api";
 
 const LIKE = 'LIKE';
 const UNLIKE = 'UNLIKE';
@@ -12,13 +13,12 @@ export const fetchPostsSuccess = (posts) => ({type: FETCH_POSTS_SUCCESS, posts})
 export const fetchPosts = () => function(dispatch) {
     //
     dispatch(fetchPostsRequest());
-    axios.get('posts.json')
-        .then(response => {
-            dispatch(fetchPostsSuccess(response.data.posts))
-        })
+    postAPI.getList().then(posts=>{
+        dispatch(fetchPostsSuccess(posts))
+    })
         .catch(error => {
 
-        });
+    });
 }
 
 export default (state = {

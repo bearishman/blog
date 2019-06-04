@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './Blog.module.css'
+import {NavLink} from "react-router-dom";
 const Blog = props => {
     return <div>
         {props.posts.map( p => <div key={p.id}>
             <div>{p.date}</div>
-            <div>{p.title}</div>
+            <div><NavLink to={`/post/${p.id}`}>{p.title}</NavLink></div>
             <div>{p.text}</div>
             <div>
                 {p.isLiked
